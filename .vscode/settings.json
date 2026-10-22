@@ -1,0 +1,17 @@
+{
+  // ── FTP Deploy ──────────────────────────────────────────────────────
+  "ftpDeploy.profiles": {
+    "dev": {
+      "protocol": "ftp",
+      "host": "sl2679.web.hostpoint.ch",
+      "port": 21,
+      "user": "theme@otiremez.myhostpoint.ch",
+      // password: use the "FTP Deploy: Save password to keychain" command
+      "remotePath": "/",
+      "localRoot": "",
+      "uploadOnSave": true,
+      "passive": true,
+      "ignore": [".git", "node_modules", ".vs", "*.user", "Thumbs.db",".vscode",".gitignore"]
+    }
+  }
+}
