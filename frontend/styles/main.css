@@ -21,54 +21,49 @@ body {
    HEADER & NAVIGATION
    ========================================= */
 [data-layout="header"] {
-    /* Remove background color and padding from the main wrapper */
     position: sticky;
     top: 0;
     z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Remove the overall color: white; so the tabs below can be styled properly */
 }
 
-/* New wrapper for the blue box */
 .header-profile-box {
     background-color: var(--color-accent); 
-    
-    /* NEW: Subtract 100px total (50px left + 50px right) */
     width: calc(100% - 100px); 
-    /* NEW: Center the box horizontally */
     margin: 0 auto; 
-    
     padding: 40px var(--gap-around) 0; 
     border-radius: 0 0 16px 16px; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--color-white);
     overflow: hidden; 
 }
 
+/* Flex layout to put Image on left, and Content on right */
 .header-profile {
     display: flex;
-    /* 3. Change from center to flex-end so the image rests exactly on the bottom edge */
     align-items: flex-end; 
-    gap: 1.5rem;
+    justify-content: center; /* Centers the whole image + content block */
+    gap: 2rem;
+    width: 100%;
 }
 
-/* Keep the rest of your existing profile image and info styles */
 .profile-image {
     width: 140px; 
     height: auto;
     object-fit: contain;
+    display: block; 
+}
+
+/* New wrapper that stacks text on top of tabs */
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .profile-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* 4. Add bottom padding to push the text up slightly, so it stays vertically centered with your face */
-    padding-bottom: 30px; 
+    color: var(--color-white);
+    margin-bottom: 25px; /* Pushes the tabs down to the bottom edge */
 }
 
 .profile-name {
@@ -85,44 +80,34 @@ body {
 }
 
 /* Navigation Tabs */
-[data-layout="header"] .nav-container {
-    width: 100%;
-    /* The negative margin pulls the tabs UP slightly so they overlap the blue box if needed, 
-       or keep it 0 if they should sit just below it. */
-    margin-top: 10px; 
+[data-layout="header"] .nav-container .nav {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end; 
+    gap: 10px; 
+    list-style: none; 
+    margin: 0;
+    padding: 0;
+}
 
-    .nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: center; 
-        align-items: flex-end;
-        gap: 15px; 
-        list-style: none; 
-        margin: 0;
-        padding: 0;
+[data-layout="header"] .nav-container .nav .nav-item a {
+    display: block;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-white); 
+    border-radius: 16px 16px 0 0;
+    transition: background-color 0.3s ease;
+}
 
-        .nav-item {
-            a {
-                display: block;
-                padding: 12px 40px;
-                font-size: 1.1rem;
-                font-weight: 700;
-                text-decoration: none;
-                /* Ensure text is white inside the dark tabs */
-                color: var(--color-white); 
-                border-radius: 16px 16px 0 0;
-                transition: background-color 0.3s ease;
-            }
+[data-layout="header"] .nav-container .nav .nav-item:nth-child(1) a {
+    background-color: #9cd5ff; 
+    color: var(--color-white);
+}
 
-            &:nth-child(1) a {
-                background-color: #9cd5ff; /* Match your light blue */
-            }
-
-            &:nth-child(2) a {
-                background-color: #21325b; /* Match your dark blue */
-            }
-        }
-    }
+[data-layout="header"] .nav-container .nav .nav-item:nth-child(2) a {
+    background-color: #21325b; 
 }
 
 /* =========================================
@@ -140,20 +125,29 @@ body {
 /* BREAKPOINT: md */
 @media (max-width: 768px) {
     .header-profile-box {
-        /* Revert to full width on mobile screens */
         width: 100%; 
-        /* Ensure top corners are sharp and bottom corners are rounded on mobile */
         border-radius: 0 0 16px 16px; 
     }
 
-    /* Keep your existing mobile profile adjustments below */
     .header-profile {
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center; 
         gap: 1rem;
     }
+
+    .profile-content {
+        align-items: center;
+    }
+
+    .profile-info {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
     .profile-name {
         font-size: 1.8rem;
     }
+
     [data-layout="header"] .nav-container .nav .nav-item a {
         padding: 10px 20px;
     }
