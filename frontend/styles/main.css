@@ -6,73 +6,128 @@
     /* colors */
     --color-white: #ffffff;
     --color-black: #000000;
-    --color-accent: #2F97DA;
+    --color-accent: #2F97DA; /* Matches the Figma blue */
     /* gaps & sizes */
     --gap-around: 40px;
     /* fonts */
-    --font-h1: normal 64px/120% serif;
+    --font-h1: normal 64px/120% "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* Styling of all available layout components. */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* =========================================
+   HEADER & NAVIGATION
+   ========================================= */
 [data-layout="header"] {
-    /* Die Haupt-Hintergrundfarbe des Headers (das mittlere Blau aus dem Design) */
-    background-color: #3b99d9; /* Ersetze dies durch deine var(--color-accent), falls passend */
-    
-    /* Wichtig: Unten 0 Padding, damit die Tabs nahtlos mit dem Seiteninhalt verschmelzen */
-    padding: 40px var(--gap-around) 0; 
-    
+    /* Remove background color and padding from the main wrapper */
     position: sticky;
     top: 0;
     z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Remove the overall color: white; so the tabs below can be styled properly */
+}
 
-    .nav-container {
-        width: 100%;
-        margin-top: 30px; /* Abstand zwischen Profil-Infos und Tabs */
+/* New wrapper for the blue box */
+.header-profile-box {
+    background-color: var(--color-accent); 
+    
+    /* NEW: Subtract 100px total (50px left + 50px right) */
+    width: calc(100% - 100px); 
+    /* NEW: Center the box horizontally */
+    margin: 0 auto; 
+    
+    padding: 40px var(--gap-around) 0; 
+    border-radius: 0 0 16px 16px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-white);
+    overflow: hidden; 
+}
 
-        .nav {
-            display: flex;
-            flex-direction: row;
-            justify-content: center; /* Tabs zentrieren statt flex-end */
-            align-items: flex-end;
-            gap: 15px; /* Abstand zwischen den beiden Tabs */
-            list-style: none; /* Entfernt die HTML-Listenpunkte */
-            margin: 0;
-            padding: 0;
+.header-profile {
+    display: flex;
+    /* 3. Change from center to flex-end so the image rests exactly on the bottom edge */
+    align-items: flex-end; 
+    gap: 1.5rem;
+}
 
-            .nav-item {
-                a {
-                    display: block;
-                    padding: 12px 40px;
-                    font-size: 1.1rem;
-                    font-weight: 700;
-                    text-decoration: none;
-                    color: #ffffff;
-                    
-                    /* Der "Ordner-Tab" Look: Oben rund, unten eckig */
-                    border-radius: 16px 16px 0 0;
-                    transition: background-color 0.3s ease;
-                }
+/* Keep the rest of your existing profile image and info styles */
+.profile-image {
+    width: 140px; 
+    height: auto;
+    object-fit: contain;
+}
 
-                /* Farben festlegen (anhand der Reihenfolge oder durch spezifische Klassen) */
-                &:nth-child(1) a {
-                    background-color: #9cd5ff; /* Helles Blau - "Meine Projekte" */
-                }
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* 4. Add bottom padding to push the text up slightly, so it stays vertically centered with your face */
+    padding-bottom: 30px; 
+}
 
-                &:nth-child(2) a {
-                    background-color: #21325b; /* Dunkles Blau - "Über mich" */
-                }
+.profile-name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.1;
+}
+
+.profile-contact p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* Navigation Tabs */
+[data-layout="header"] .nav-container {
+    width: 100%;
+    /* The negative margin pulls the tabs UP slightly so they overlap the blue box if needed, 
+       or keep it 0 if they should sit just below it. */
+    margin-top: 10px; 
+
+    .nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: center; 
+        align-items: flex-end;
+        gap: 15px; 
+        list-style: none; 
+        margin: 0;
+        padding: 0;
+
+        .nav-item {
+            a {
+                display: block;
+                padding: 12px 40px;
+                font-size: 1.1rem;
+                font-weight: 700;
+                text-decoration: none;
+                /* Ensure text is white inside the dark tabs */
+                color: var(--color-white); 
+                border-radius: 16px 16px 0 0;
+                transition: background-color 0.3s ease;
+            }
+
+            &:nth-child(1) a {
+                background-color: #9cd5ff; /* Match your light blue */
+            }
+
+            &:nth-child(2) a {
+                background-color: #21325b; /* Match your dark blue */
             }
         }
     }
 }
 
-/* Styling of all available teaser components. */
-
-/* Styling of utility classes, can be added anywhere in the project. */
-
+/* =========================================
+   MEDIA QUERIES
+   ========================================= */
 /* BREAKPOINT: 3xl */
 @media (max-width: 1514px) {}
 
@@ -83,7 +138,26 @@
 @media (max-width: 1024px) {}
 
 /* BREAKPOINT: md */
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+    .header-profile-box {
+        /* Revert to full width on mobile screens */
+        width: 100%; 
+        /* Ensure top corners are sharp and bottom corners are rounded on mobile */
+        border-radius: 0 0 16px 16px; 
+    }
+
+    /* Keep your existing mobile profile adjustments below */
+    .header-profile {
+        flex-direction: row;
+        gap: 1rem;
+    }
+    .profile-name {
+        font-size: 1.8rem;
+    }
+    [data-layout="header"] .nav-container .nav .nav-item a {
+        padding: 10px 20px;
+    }
+}
 
 /* BREAKPOINT: sm */
 @media (max-width: 640px) {}
