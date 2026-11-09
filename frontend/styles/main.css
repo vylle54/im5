@@ -15,64 +15,58 @@
 
 /* Styling of all available layout components. */
 [data-layout="header"] {
-    padding: var(--gap-around);
-    background-color: var(--color-accent);
+    /* Die Haupt-Hintergrundfarbe des Headers (das mittlere Blau aus dem Design) */
+    background-color: #3b99d9; /* Ersetze dies durch deine var(--color-accent), falls passend */
+    
+    /* Wichtig: Unten 0 Padding, damit die Tabs nahtlos mit dem Seiteninhalt verschmelzen */
+    padding: 40px var(--gap-around) 0; 
+    
     position: sticky;
     top: 0;
     z-index: 100;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-[data-layout="header"] .nav-container .nav {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-self: center;
-    gap: 10px;
-}
-[data-layout="header"] .nav-container .nav a {
-    text-decoration: none;
-    color: var(--color-white);
-}
-[data-layout="footer"] {
-    padding: var(--gap-around);
-    background-color: var(--color-accent);
-}
-
-/* Styling of all available page components. */
-[data-page] {
-    width: 100%;
-    height: 100%;
-}
-
-/* Styling of all available module components. */
-[data-module] {
-    overflow: clip;
-    position: relative;
-    width: 100%;
-}
-[data-module="example"] {
-    display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-}
-[data-module="example"] > .image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    inset: 0;
-}
-[data-module="example"] > .title {
-    position: relative;
-    color: white;
-    font: var(--font-h1);
-    text-align: center;
+
+    .nav-container {
+        width: 100%;
+        margin-top: 30px; /* Abstand zwischen Profil-Infos und Tabs */
+
+        .nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: center; /* Tabs zentrieren statt flex-end */
+            align-items: flex-end;
+            gap: 15px; /* Abstand zwischen den beiden Tabs */
+            list-style: none; /* Entfernt die HTML-Listenpunkte */
+            margin: 0;
+            padding: 0;
+
+            .nav-item {
+                a {
+                    display: block;
+                    padding: 12px 40px;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    text-decoration: none;
+                    color: #ffffff;
+                    
+                    /* Der "Ordner-Tab" Look: Oben rund, unten eckig */
+                    border-radius: 16px 16px 0 0;
+                    transition: background-color 0.3s ease;
+                }
+
+                /* Farben festlegen (anhand der Reihenfolge oder durch spezifische Klassen) */
+                &:nth-child(1) a {
+                    background-color: #9cd5ff; /* Helles Blau - "Meine Projekte" */
+                }
+
+                &:nth-child(2) a {
+                    background-color: #21325b; /* Dunkles Blau - "Über mich" */
+                }
+            }
+        }
+    }
 }
 
 /* Styling of all available teaser components. */

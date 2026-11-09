@@ -4,7 +4,11 @@ js_log($menu);
 ?>
 
 <header data-layout="header">
-    <mark>hier kommt der header</mark>
+    <div class="profile-section">
+        <!-- Hier kommt dein Header-Inhalt (Bild, Name, Kontakt) -->
+        <mark>hier kommt der header</mark>
+    </div>
+    
     <nav class="nav-container">
         <ul class="nav">
             <?php foreach ($menu as $item) : ?>
